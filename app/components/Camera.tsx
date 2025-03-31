@@ -6,9 +6,9 @@ import { FaceDetectionProcessor } from "@videosdk.live/videosdk-media-processor-
 import { Line } from "rc-progress";
 
 const CameraComponent = () => {
-  const videoRef = useRef(null);
-  const videoProceRef = useRef(null);
-  const [processedStream, setProcessedStream] = useState(null);
+  const videoRef = useRef<any>(null);
+  const videoProceRef = useRef<any>(null);
+  // const [processedStream, setProcessedStream] = useState(null);
   const [processedData, setProcessedData] = useState<any>({});
 
   const faceDetectionProcessor = useMemo(() => {
@@ -30,13 +30,13 @@ const CameraComponent = () => {
         },
       });
       videoProceRef.current.srcObject = processedStream;
-      setProcessedStream(processedStream);
+      // setProcessedStream(processedStream);
     }
   };
 
   const handleStopFaceDetection = async () => {
     faceDetectionProcessor?.stop();
-    setProcessedStream(null);
+    // setProcessedStream(null);
     setProcessedData({});
   };
 
