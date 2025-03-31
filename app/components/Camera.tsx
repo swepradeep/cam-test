@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -19,12 +18,13 @@ const CameraComponent = () => {
     // Getting stream from webcam
     // const stream = await createCameraVideoTrack({});
     if (videoRef.current && videoRef.current.srcObject) {
+      // @ts-ignore
       const processedStream = await faceDetectionProcessor.start({
         stream: videoRef.current.srcObject,
         options: {
           interval: 500,
         },
-        callback: function (data) {
+        callback: function (data: any) {
           console.log(data);
           setProcessedData(data);
         },
@@ -35,6 +35,7 @@ const CameraComponent = () => {
   };
 
   const handleStopFaceDetection = async () => {
+    //@ts-ignore
     faceDetectionProcessor?.stop();
     // setProcessedStream(null);
     setProcessedData({});
@@ -108,13 +109,14 @@ const CameraComponent = () => {
       <div className="w-full flex border gap-4 p-5">
         <ul style={{ width: "250px" }}>
           <li>
-            Left Eye Blink : 
+            Left Eye Blink :
             {(processedData?.faceLandMark?.eyeBlinkLeft || 0).toFixed(2) >= 50
               ? "YES"
               : (processedData?.faceLandMark?.eyeBlinkLeft || 0).toFixed(2) >=
                   30
                 ? "MAY BE"
-                : "NO"}:
+                : "NO"}
+            :
           </li>
           <li>
             Right Eye Blink :
