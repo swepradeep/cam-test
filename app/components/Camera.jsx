@@ -1,30 +1,34 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaceDetectionProcessor } from "@videosdk.live/videosdk-media-processor-web";
 import { Line } from "rc-progress";
 
+import {FaceDetectionProcessor} from "@videosdk.live/videosdk-media-processor-web"
+
+
 const CameraComponent = () => {
-  const videoRef = useRef<any>(null);
-  const videoProceRef = useRef<any>(null);
+  const videoRef = useRef(null);
+  const videoProceRef = useRef(null);
   // const [processedStream, setProcessedStream] = useState(null);
-  const [processedData, setProcessedData] = useState<any>({});
+  const [processedData, setProcessedData] = useState({});
 
   const faceDetectionProcessor = useMemo(() => {
     return new FaceDetectionProcessor();
   }, []);
 
+
+  console.log("faceDetectionProcessor", faceDetectionProcessor);
   const handleStartFaceDetection = async () => {
     // Getting stream from webcam
     // const stream = await createCameraVideoTrack({});
     if (videoRef.current && videoRef.current.srcObject) {
       // @ts-ignore
-      const processedStream = await faceDetectionProcessor.start({
+      const processedStream = await faceDetectionProcessor?.start({
         stream: videoRef.current.srcObject,
         options: {
           interval: 500,
         },
-        callback: function (data: any) {
+        callback: function (data) {
           console.log(data);
           setProcessedData(data);
         },
